@@ -9,6 +9,8 @@ This tutorial explains how to install and use Node-RED on the Turck IM18-CCM50. 
 
 [Node-RED](https://nodered.org/) is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways. It provides a browser-based editor that makes it easy to wire together flows using the wide range of nodes in the palette that can be deployed to its runtime in a single-click.
 
+![CCM50NodeRED](/assets/img/CCM50NodeRed.png)
+
 ## Connect to the IM18-CCM50
 By default the ethernet interfaces are set the DHCP. The default IP addresses when no DHCP server is active are 192.168.1.20 for ETH0 and 192.168.1.10 for ETH1. After powering up the device and connecting via ethernet it is possible to access the device via SSH. A client like [PuTTY](https://www.putty.org/) can be used. The user is `sshu` and the default password is `P@ssw0rd12ssh!` It is recommended to change this password after the first login. 
 
@@ -44,11 +46,11 @@ When Node-RED is installed and running, it is possible to use the scripts that a
 
 There is a flow [available](https://flows.nodered.org/flow/64631bb920110a0fb6db3e0c8c765735) where the `ambient_read.sh` script is executed every 30 seconds (this can be changed after importing) and the result is added to the `msg` object. The flow looks like this:
 
-![Ambient](Ambient_read-flow.png)
+![Ambient](/assets/img/Ambient_read-flow.png)
 
 When observing de debug output it shows the payload object with the humidity and temperature:
 
-![Payload object](PayloadObject.png)
+![Payload object](/assets/img/PayloadObject.png)
 
 ## Installing additional Node-RED submodule for Modbus
 To use Modbus in Node-RED an additional package needs to be installed. There are several packages available, in this tutorial we will use the [node-red-contrib-modbus](https://flows.nodered.org/node/node-red-contrib-modbus) package. Normally packages can be added by using the `manage palette` menu option. However, when trying this the following error shows up in the installation log: 
@@ -76,3 +78,5 @@ Now it is possible to install the `node-red-contrib-modbus` package via the mana
 ## Using modbus in Node-RED
 To use the modbus connection, first a modbus device needs to be connected. 
  To use the modbus serial connection use the `Modbus - Read` node to read a register from a connected modbus device.
+
+ # TO DO
