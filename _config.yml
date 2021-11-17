@@ -31,7 +31,12 @@ permalink: /:title/
 markdown: kramdown
 paginate: 5
 paginate_path: "/:num/"
-date_format: date_to_long_string
+#date_format: date_to_long_string
+
+minima:
+  date_format: "%v"
+
+show_excerpts: true
 
 # Show posts from the future:
 # future: true;

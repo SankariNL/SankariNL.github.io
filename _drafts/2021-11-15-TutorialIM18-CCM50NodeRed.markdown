@@ -1,15 +1,19 @@
 ---
 layout: post
 title:  "Node-RED on the Turck IM18-CCM50"
-date:   2021-11-15 13:00:00 +0100
-categories: IM18-CCM50 Node-RED Modbus
+date:   2021-11-17 13:00:00 +0100
+categories: Node-RED
+tags: IM18-CCM50 Node-RED Modbus Linux
+excerpt_separator: <!--more-->
 ---
-# Node-RED on the Turck IM18-CCM50
-This tutorial explains how to install and use Node-RED on the Turck IM18-CCM50. More information about the IM18-CCM50 can be found on [the Turck website](https://www.turck.de/en/product/100022405).
+This tutorial explains how to install and use Node-RED on the Turck IM18-CCM50. The IM18-CCM50 is a small industrial Linux computer, suitable for placing in control cabinets. More information about the IM18-CCM50 can be found on [the Turck website](https://www.turck.de/en/product/100022405).
 
 [Node-RED](https://nodered.org/) is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways. It provides a browser-based editor that makes it easy to wire together flows using the wide range of nodes in the palette that can be deployed to its runtime in a single-click.
 
 ![CCM50NodeRED](/assets/img/CCM50NodeRed.png)
+
+
+<!--more-->
 
 ## Connect to the IM18-CCM50
 By default the ethernet interfaces are set the DHCP. The default IP addresses when no DHCP server is active are 192.168.1.20 for ETH0 and 192.168.1.10 for ETH1. After powering up the device and connecting via ethernet it is possible to access the device via SSH. A client like [PuTTY](https://www.putty.org/) can be used. The user is `sshu` and the default password is `P@ssw0rd12ssh!` It is recommended to change this password after the first login. 
@@ -54,6 +58,7 @@ When observing de debug output it shows the payload object with the humidity and
 
 ## Installing additional Node-RED submodule for Modbus
 To use Modbus in Node-RED an additional package needs to be installed. There are several packages available, in this tutorial we will use the [node-red-contrib-modbus](https://flows.nodered.org/node/node-red-contrib-modbus) package. Normally packages can be added by using the `manage palette` menu option. However, when trying this the following error shows up in the installation log: 
+
 # TO DO
 
 This is because the [SerialPort](https://www.npmjs.com/package/serialport) Node.js package could not be installed. The IM18-CCM50 uses a Texas instruments Sitara processor that is based on ARM v7. According to the [documentation of SerialPort](https://serialport.io/docs/guide-platform-support) this is not a supported platform, but will probably work. To get it to work we need to compile the SerialPort package from scratch. For this we need the `build-essential` and `python 2.7` packages.
