@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Node-RED on the Turck IM18-CCM50"
-date:   2021-11-18 13:00:00 +0100
+date:   2021-11-18 16:00:00 +0100
 categories: Node-RED
 tags: IM18-CCM50 Node-RED Modbus Linux
 excerpt_separator: <!--more-->
