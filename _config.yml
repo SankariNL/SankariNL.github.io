@@ -39,7 +39,7 @@ minima:
 show_excerpts: true
 
 # Show posts from the future:
-# future: true;
+future: true;
 
 # Build settings
 theme: minima
