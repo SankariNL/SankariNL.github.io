@@ -19,11 +19,11 @@ This tutorial explains how to install and use Node-RED on the Turck IM18-CCM50. 
 By default the ethernet interfaces are set the DHCP. The default IP addresses when no DHCP server is active are 192.168.1.20 for ETH0 and 192.168.2.20 for ETH1. After powering up the device and connecting via ethernet it is possible to access the device via SSH. A client like [PuTTY](https://www.putty.org/) can be used. The user is `sshu` and the default password is `P@ssw0rd12ssh!` It is recommended to change this password after the first login. 
 
 ## Installing Node-RED
-The [Node-RED documenation](https://nodered.org/docs/getting-started/local) tells us that first Node.js needs to be installed. In the [FAQ](https://nodered.org/docs/faq/node-versions) the recommended and supported versions of Node.js can be found. I recommend to use the most recent supported LTS release of Node.js. Check the [Node.js website](https://nodejs.org/en/about/releases/) for information about the current LTS release. At the time of writing Node.js V16 is the most recent LTS release.
+The [Node-RED documenation](https://nodered.org/docs/getting-started/local) tells us that first Node.js needs to be installed. In the [FAQ](https://nodered.org/docs/faq/node-versions) the recommended and supported versions of Node.js can be found. I recommend to use the most recent supported LTS release of Node.js. Check the [Node.js website](https://nodejs.org/en/about/releases/) for information about the current LTS release. At the time of writing Node.js V14 is recommended by Node-RED. Also the modbus package we will install later is not yet supported with Node.js V16.
 
 The [Node.js documentation](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) explains that an installation package for Node.js is provided by [NodeSource](https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions). Use the following commands to install Node.js on the IM18-CCM50:
 ```bash
-sudo curl -fsSL https://deb.nodesource.com/setup_16.x | sudo bash -
+sudo curl -fsSL https://deb.nodesource.com/setup_14.x | sudo bash -
 sudo apt install -y nodejs
 ```
 
@@ -43,7 +43,9 @@ To start Node-RED on boot, a script needs to be added. [The script is available 
 ```
 sudo wget -O /tmp/node-red https://gist.githubusercontent.com/SankariNL/afe080d53b90ffe19081e720b569a319/raw && sudo mv /tmp/node-red /etc/init.d && sudo chmod +x /etc/init.d/node-red && sudo update-rc.d node-red defaults
 ```
-The file can also be manually added to the `/etc/init.d` folder via SCP for example. Then the `chmod` and `update-rc.d` commands need to be executed manually. Reboot the IM18-CCM50 and access Node-RED via the webbrowser again.
+The file can also be manually added to the `/etc/init.d` folder via SCP for example. Then the `chmod` and `update-rc.d` commands need to be executed manually. 
+
+Reboot the IM18-CCM50 and access Node-RED via the webbrowser again.
 
 ## Using the available scripts
 When Node-RED is installed and running, it is possible to use the scripts that are delivered with the IM18-CCM50. These scripts are located in the `/home/scripts` directory as mentioned in chapter 7.3 of [the manual](https://www.turck.nl/attachment/100023797.pdf). Scripts can be executed by Node-RED by using the default `exec` node. To execute the `ambient_read.sh` script input the following as the command: `/home/scripts/ambient_read.sh`. 
@@ -62,40 +64,19 @@ To use Modbus in Node-RED an additional package needs to be installed. There are
 ![ErrorModbusInstall](/assets/img/ErrorModbusInstall.png)
 
 This is because the [SerialPort](https://www.npmjs.com/package/serialport) Node.js package could not be installed. The IM18-CCM50 uses a Texas instruments Sitara processor that is based on ARM v7. According to the [documentation of SerialPort](https://serialport.io/docs/guide-platform-support) this is not a supported platform, but will probably work. To get it to work we need to compile the SerialPort package from scratch. 
-# TO DO START
-For this we need multiple packages and Pyton3.6 or higher.
 
-Install the following packages to enable compiling of Python3 and Node.js packages on Debian:
+For this we need the `build-essential` package and `python 2.7`.
+
+Use the following command to install the `build-essential` package:
 ```
 sudo apt-get update
-sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
-```
-
-Python3.6 or higher needs to be installed as well. I've used `python3.9.9` (latest at the time of writing). Use the following commands to install python3.9.9: (this could take some time)
-
-```
-
-cd /home/temp
-sudo wget https://www.python.org/ftp/python/3.9.9/Python-3.9.9.tgz
-sudo tar xzf Python-3.9.9.tgz
-cd Python-3.9.9
-./configure --enable-optimizations
-make -j 2
-sudo make altinstall
+sudo apt install build-essential
 ```
 
 Install the `python2.7` package because by default only the minimal python package is installed. SerialPort uses the `ast` package that is not included in the minimal python installation.
 ```
 sudo apt install python2.7
 ```
-
-To compile and install a Node.js package on the IM18-CCM50 we need an older version of node-gyp. This is because newer version require a newer Python version that is not available for Debian 9.
-
-```
-sudo npm install node-gyp@7.1.2
-```
-
-# TO DO END
 
 Now compile and install the Node.js package with the following command:
 ```
