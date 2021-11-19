@@ -38,6 +38,9 @@ minima:
 
 show_excerpts: true
 
+# Google analytics 4
+google_analytics: G-67K8FN3KJF
+
 # Show posts from the future:
 # future: true;
 
