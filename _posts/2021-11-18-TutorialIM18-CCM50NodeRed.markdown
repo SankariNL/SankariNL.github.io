@@ -80,7 +80,7 @@ sudo apt install python2.7
 
 Now compile and install the Node.js package with the following command:
 ```
-sudo npm install serialport --unsafe-perm --build-from-source
+sudo npm install -g serialport --unsafe-perm --build-from-source
 ```
 
 Now it is possible to install the `node-red-contrib-modbus` package via the manage palette function in Node-RED. After installing the new modbus related nodes show up on the left side in Node-RED.
