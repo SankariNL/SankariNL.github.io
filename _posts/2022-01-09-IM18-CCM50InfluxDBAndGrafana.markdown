@@ -1,7 +1,7 @@
 ---
-layout: post
+layout: blogpost
 title:  "Local dashboard (InfluxDB and Grafana) on the Turck IM18-CCM50"
-date:   2022-2-9 12:00:00 +0100
+date:   2022-2-9 15:00:00 +0100
 categories: Node-RED
 tags: IM18-CCM50 Node-RED Linux InfluxDB Grafana
 excerpt_separator: <!--more-->
@@ -14,7 +14,7 @@ This tutorial explains how to install and setup a local dashboard with InfluxDB 
 
 [Node-RED](https://nodered.org/) is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways. It provides a browser-based editor that makes it easy to wire together flows using the wide range of nodes in the palette that can be deployed to its runtime in a single-click.
 
-![CCM50NodeRED](/assets/img/CCM50NodeRedInfluxDBandGrafana.png)
+[![CCM50NodeRED](/assets/img/CCM50NodeRedInfluxDBandGrafana.png)](/assets/img/CCM50NodeRedInfluxDBandGrafana.png)
 
 
 <!--more-->
@@ -93,15 +93,15 @@ Reboot the IM18-CCM50 and Grafana will start. Grafana can be accessed by accessi
 
 The `influxdb out` node can be used to send data to InfluxDB. There is a flow [available](https://flows.nodered.org/flow/64631bb920110a0fb6db3e0c8c765735) where the `ambient_read.sh` script that is by default present on the IM18-CCM50 is executed every 30 seconds (this can be changed after importing) and the result is added to the `msg` object. This data can be used to send to InfluxDB. After adding the `influxdb out` node the flow looks like this:
 
-![CCM50NodeRED](/assets/img/Ambient_read+influxdbOut.png)
+[![CCM50NodeRED](/assets/img/Ambient_read+influxdbOut.png)](/assets/img/Ambient_read+influxdbOut.png)
 
 The InfluxDB node and server still needs to be configured in NodeRED. Doubleclick the `influxdb out` node to change the settings.
 
-![CCM50NodeRED](/assets/img/NoderedInfluxDBLocalout.png)
+[![CCM50NodeRED](/assets/img/NoderedInfluxDBLocalout.png)](/assets/img/NoderedInfluxDBLocalout.png)
 
 Enter a name, the database name that was made earlier in this tutorial and the measurement name. Then click the small pencil next to the server selection to change the server settings.
 
-![CCM50NodeRED](/assets/img/NoderedInfluxDBLocalserver.png)
+[![CCM50NodeRED](/assets/img/NoderedInfluxDBLocalserver.png)](/assets/img/NoderedInfluxDBLocalserver.png)
 
 Give the server a name, choose the correct version (1.8-flux) and give in the URL as shown above. It is advised to [secure the InfluxDB instance](https://docs.influxdata.com/influxdb/v1.8/administration/security/), this is however not covered in this tutorial.
 
@@ -111,35 +111,34 @@ When this flow is deployed every 30 seconds the ambient sensor values will be sa
 
 Grafana can be accessed by accessing the IP with port `3000` in the webbrowser. For example:  `192.168.2.20:3000`. The default user and password are `admin` and `admin`. The password needs to be changed at the first login. The first view looks like this:
 
-![Grafana overview](/assets/img/GrafanaOverview.png)
+[![Grafana overview](/assets/img/GrafanaOverview.png)](/assets/img/GrafanaOverview.png)
 
 First setup a data source. Click on the `Add your first data source` tile. Start searching for `influx` and select `InfluxDB`.
 
-![Grafana choose datasource](/assets/img/GrafanaDatasourceInfluxSelect.png)
+[![Grafana choose datasource](/assets/img/GrafanaDatasourceInfluxSelect.png)](/assets/img/GrafanaDatasourceInfluxSelect.png)
 
 Now give the datasource a name, choose `InfluxQL` as the query language and fill in the connection settings as shown below.
-![Grafana datasource InfluxDB](/assets/img/GrafanaDatasourceInfluxSettings.png)
+[![Grafana datasource InfluxDB](/assets/img/GrafanaDatasourceInfluxSettings.png)](/assets/img/GrafanaDatasourceInfluxSettings.png)
 
 Scroll down and enter the databasename created earlier
 
-![Grafana datasource save](/assets/img/GrafanaDatasourceInfluxSave.png)
+[![Grafana datasource save](/assets/img/GrafanaDatasourceInfluxSave.png)](/assets/img/GrafanaDatasourceInfluxSave.png)
 
 Click `Save & test` to save the settings and test the connection. The result should show `Data source is working`.
 
 ## Visualize the saves values from InfluxDB with Grafana
 Go back to the first view and click on `Create your first dashboard` to create a new dashboard. Then click on `Add a new panel`. The following screens shows:
 
-![Grafana dashboard](/assets/img/GrafanaCreateDashboard.png)
+[![Grafana dashboard](/assets/img/GrafanaCreateDashboard.png)](/assets/img/GrafanaCreateDashboard.png)
 
 Select the table by clicking `select measurement` and choose `AmbientRead`. Click on `field(value)` to choose the temperature or humidity. Fill in a name in the title. This results in the following:
 
-![Grafana dashboard temperature](/assets/img/GrafanaCreateDashboardTemperature.png)
+[![Grafana dashboard temperature](/assets/img/GrafanaCreateDashboardTemperature.png)](/assets/img/GrafanaCreateDashboardTemperature.png)
 
 Click `save` to save and repeat the same process with a new panel to show the humidity as well on the dashboard. This results in a dashboard with 2 graphs:
 
-![Grafana dashboard finished](/assets/img/GrafanaDashboard.png)
+[![Grafana dashboard finished](/assets/img/GrafanaDashboard.png)](/assets/img/GrafanaDashboard.png)
 
 There is a lot more possible with the panel an query editor. See [the Grafana documentation](https://grafana.com/docs/grafana/latest/panels/panel-editor/) for more information about building panels and advanced query options.
 
 This tutorial shows the installation and usage of InfluxDB and Grafana on the IM18-CCM50. Now it's possible to collect data with NodeRED, store data in InfluxDB and visualize the data with Grafana.
-
