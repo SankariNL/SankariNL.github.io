@@ -27,8 +27,7 @@ The package of InfluxDB that is included with Debian is really outdated (version
 In the [documentation](https://docs.influxdata.com/influxdb/v1.8/introduction/install/) of InfluxDB, instructions are found on how to add the repo. These commands below (slightly changed, because the command lsb_release does not execute on the IM18-CCM50) can be used to add the repository.
 
 ``` bash
-sudo wget -qO- https://repos.influxdata.com/influxdb.key | sudo gpg --dearmor | sudo tee /etc/apt/
-trusted.gpg.d/influxdb.gpg > /dev/null
+sudo wget -qO- https://repos.influxdata.com/influxdb.key | sudo gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdb.gpg > /dev/null
 sudo echo "deb [signed-by=/etc/apt/trusted.gpg.d/influxdb.gpg] https://repos.influxdata.com/debian stretch stable" | sudo tee /etc/apt/sources.list.d/influxdb.list > /dev/null
 ```
 
@@ -95,7 +94,7 @@ The `influxdb out` node can be used to send data to InfluxDB. There is a flow [a
 
 [![CCM50NodeRED](/assets/img/Ambient_read+influxdbOut.png)](/assets/img/Ambient_read+influxdbOut.png)
 
-The InfluxDB node and server still needs to be configured in NodeRED. Doubleclick the `influxdb out` node to change the settings.
+The InfluxDB node and server still needs to be configured in Node-RED. Doubleclick the `influxdb out` node to change the settings.
 
 [![CCM50NodeRED](/assets/img/NoderedInfluxDBLocalout.png)](/assets/img/NoderedInfluxDBLocalout.png)
 
@@ -120,13 +119,13 @@ First setup a data source. Click on the `Add your first data source` tile. Start
 Now give the datasource a name, choose `InfluxQL` as the query language and fill in the connection settings as shown below.
 [![Grafana datasource InfluxDB](/assets/img/GrafanaDatasourceInfluxSettings.png)](/assets/img/GrafanaDatasourceInfluxSettings.png)
 
-Scroll down and enter the databasename created earlier
+Scroll down and enter the name of the database created earlier.
 
 [![Grafana datasource save](/assets/img/GrafanaDatasourceInfluxSave.png)](/assets/img/GrafanaDatasourceInfluxSave.png)
 
 Click `Save & test` to save the settings and test the connection. The result should show `Data source is working`.
 
-## Visualize the saves values from InfluxDB with Grafana
+## Visualize the saved values from InfluxDB with Grafana
 Go back to the first view and click on `Create your first dashboard` to create a new dashboard. Then click on `Add a new panel`. The following screens shows:
 
 [![Grafana dashboard](/assets/img/GrafanaCreateDashboard.png)](/assets/img/GrafanaCreateDashboard.png)
@@ -139,6 +138,6 @@ Click `save` to save and repeat the same process with a new panel to show the hu
 
 [![Grafana dashboard finished](/assets/img/GrafanaDashboard.png)](/assets/img/GrafanaDashboard.png)
 
-There is a lot more possible with the panel an query editor. See [the Grafana documentation](https://grafana.com/docs/grafana/latest/panels/panel-editor/) for more information about building panels and advanced query options.
+There is a lot more possible with the panel and query editor. See [the Grafana documentation](https://grafana.com/docs/grafana/latest/panels/panel-editor/) for more information about building panels and advanced query options.
 
-This tutorial shows the installation and usage of InfluxDB and Grafana on the IM18-CCM50. Now it's possible to collect data with NodeRED, store data in InfluxDB and visualize the data with Grafana.
+This tutorial shows the installation and usage of InfluxDB and Grafana on the IM18-CCM50. Now it's possible to collect data with Node-RED, store data in InfluxDB and visualize the data with Grafana.
