@@ -21,7 +21,7 @@
 title: Jouke Aalvanger's blog
 # email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  This blog will be focussed on software development in the industrial automation world.
+  This blog is focussed on software development in the industrial automation world.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://joukeaalvanger.nl" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  SankariNL
